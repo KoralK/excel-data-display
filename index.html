@@ -27,9 +27,10 @@
     <input type="file" id="csvUpload" accept=".xlsx">
     <div id="dataDisplay"></div>
     <script>
+            const fixedHeaders = ["Name", "Age", "Occupation", "Country"];
+            
             document.getElementById("csvUpload").addEventListener("change", function(event){
             let file = event.target.files[0];
-            const fixedHeaders = ["Name", "Age", "Occupation", "Country"];
             
             let reader = new FileReader();
             reader.onload = function(e) {
@@ -70,8 +71,6 @@
                 table += "</table>";
                 displayDiv.innerHTML = table;
             }
-
-
 
 
     </script>
