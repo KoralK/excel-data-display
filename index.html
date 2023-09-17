@@ -38,36 +38,39 @@
                 // For simplicity, we're just reading the first sheet
                 let firstSheetName = workbook.SheetNames[0];
                 let worksheet = workbook.Sheets[firstSheetName];
-                
-                let jsonData = XLSX.utils.sheet_to_json(worksheet);
+
+                let jsonData = XLSX.utils.sheet_to_json(worksheet, {range: 1});
                 
                 displayExcelData(jsonData);
             };
             reader.readAsArrayBuffer(file);
             });
 
-        function displayExcelData(data) {
-            let displayDiv = document.getElementById("dataDisplay");
-            let table = "<table border='1'>";
+            function displayExcelData(data) {
+                let displayDiv = document.getElementById("dataDisplay");
+                let table = "<table border='1'>";
 
-            let headers = Object.keys(data[0]);
-            table += "<tr>";
-            for(let header of headers) {
-                table += "<th>" + header + "</th>";
-            }
-            table += "</tr>";
+                if(data.length > 0) {
+                    let headers = Object.keys(data[0]);
+                    table += "<tr>";
+                    for(let header of headers) {
+                        table += "<th>" + header + "</th>";
+                    }
+                    table += "</tr>";
 
-            for(let row of data) {
-                table += "<tr>";
-                for(let header of headers) {
-                    table += "<td>" + row[header] + "</td>";
+                    for(let row of data) {
+                        table += "<tr>";
+                        for(let header of headers) {
+                            table += "<td>" + (row[header] || '') + "</td>"; // Ensure data exists for each header
+                        }
+                        table += "</tr>";
+                    }
                 }
-                table += "</tr>";
+
+                table += "</table>";
+                displayDiv.innerHTML = table;
             }
 
-            table += "</table>";
-            displayDiv.innerHTML = table;
-        }
 
 
     </script>
