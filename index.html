@@ -29,6 +29,7 @@
     <script>
             document.getElementById("csvUpload").addEventListener("change", function(event){
             let file = event.target.files[0];
+            const fixedHeaders = ["Name", "Age", "Occupation", "Country"];
             
             let reader = new FileReader();
             reader.onload = function(e) {
@@ -51,17 +52,16 @@
                 let table = "<table border='1'>";
 
                 if(data.length > 0) {
-                    let headers = Object.keys(data[0]);
                     table += "<tr>";
-                    for(let header of headers) {
+                    for(let header of fixedHeaders) {
                         table += "<th>" + header + "</th>";
                     }
                     table += "</tr>";
 
                     for(let row of data) {
                         table += "<tr>";
-                        for(let header of headers) {
-                            table += "<td>" + (row[header] || '') + "</td>"; // Ensure data exists for each header
+                        for(let header of fixedHeaders) {
+                            table += "<td>" + (row[header] || '') + "</td>";
                         }
                         table += "</tr>";
                     }
@@ -70,6 +70,7 @@
                 table += "</table>";
                 displayDiv.innerHTML = table;
             }
+
 
 
 
