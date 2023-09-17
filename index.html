@@ -42,7 +42,7 @@
                 let firstSheetName = workbook.SheetNames[0];
                 let worksheet = workbook.Sheets[firstSheetName];
 
-                let jsonData = XLSX.utils.sheet_to_json(worksheet, {range: 1});
+                let jsonData = XLSX.utils.sheet_to_json(worksheet);
                 
                 displayExcelData(jsonData);
             };
