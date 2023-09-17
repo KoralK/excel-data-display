@@ -65,15 +65,19 @@
                     for(let row of data) {
                         table += "<tr>";
                         for(let header of fixedHeaders) {
+                            if (!row[header]) {
+                                console.log("Missing data for header:", header, "in row:", row);
+                            }
                             table += "<td>" + (row[header] || '') + "</td>";
                         }
                         table += "</tr>";
                     }
                 }
 
-                table += "</table>";
-                displayDiv.innerHTML = table;
-            }
+    table += "</table>";
+    displayDiv.innerHTML = table;
+}
+
 
 
     </script>
