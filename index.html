@@ -33,6 +33,7 @@
             let file = event.target.files[0];
             
             let reader = new FileReader();
+            
             reader.onload = function(e) {
                 let data = new Uint8Array(e.target.result);
                 let workbook = XLSX.read(data, {type: 'array'});
@@ -47,6 +48,8 @@
             };
             reader.readAsArrayBuffer(file);
             });
+
+            console.log(jsonData);
 
             function displayExcelData(data) {
                 let displayDiv = document.getElementById("dataDisplay");
