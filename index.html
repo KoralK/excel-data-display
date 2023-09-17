@@ -4,9 +4,55 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Excel Data Display</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        td, th {
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+    </style>
+    
 </head>
 <body>
     <h1>Welcome to Excel Data Display</h1>
     <p>This website will display data fetched from Excel files.</p>
+    <input type="file" id="csvUpload">
+    <div id="dataDisplay"></div>
+    <script>
+        document.getElementById("csvUpload").addEventListener("change", function(event){
+            let file = event.target.files[0];
+            
+            Papa.parse(file, {
+                complete: function(results) {
+                    displayData(results.data);
+                }
+            });
+        });
+
+        function displayData(data) {
+            let displayDiv = document.getElementById("dataDisplay");
+            let table = "<table border='1'>";
+
+            for(let row of data) {
+                table += "<tr>";
+                for(let cell of row) {
+                    table += "<td>" + cell + "</td>";
+                }
+                table += "</tr>";
+            }
+
+            table += "</table>";
+            displayDiv.innerHTML = table;
+        }
+
+    </script>
+
 </body>
 </html>
